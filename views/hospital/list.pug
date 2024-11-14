@@ -1,0 +1,46 @@
+extends ../frame
+block content
+    form.layui-form(action='/hospital', method='get')
+        div.layui-row.layui-col-space10
+            div.layui-col-lg2
+                input.layui-input(placeholder='输入关键字查询', name='keywords', lay-affix="clear")
+            div.layui-col-lg1
+                select(name='province')
+                    option(value='') 请选择
+                    option(value='1') 甘肃省
+                    option 山西省
+                    option 陕西省
+                    option 北京市
+            div.layui-col-lg1
+                select(name='city')
+                    option(value='') 请选择
+                    option AAA
+                    option AAA
+                    option AAA
+                    option AAA
+            div.layui-col-lg1
+                select(name='county')
+                    option(value='') 请选择
+                    option AAA
+                    option AAA
+                    option AAA
+                    option AAA
+            div.layui-col-lg3
+                button.layui-btn(lay-submit) 查询
+                button.layui-btn.layui-btn-primary 添加
+    table.layui-table
+    div#laypage
+block script
+    script.
+        layui.use(function () {
+            let laypage = layui.laypage;
+            laypage.render({
+                elem: 'laypage',
+                count: 100,
+                layout: ['limit', 'prev', 'page', 'next']
+            })
+        });
+
+
+
+

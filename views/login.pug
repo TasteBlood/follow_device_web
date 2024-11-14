@@ -1,0 +1,23 @@
+doctype html
+html
+    head
+        title 用户登录
+        link(rel='stylesheet', href='/layui/css/layui.css')
+        link(rel='stylesheet', href='/css/login.css')
+    body
+        div.login-form.layui-padding-4
+            h2.layui-margin-3(style='color:white;text-align:center') 用户登录
+            form#form.layui-form(method='post', action='/login')
+                div.layui-form-item
+                    div.layui-input-wrap
+                        div.layui-input-prefix
+                            i.layui-icon.layui-icon-username
+                        input.layui-input(placeholder='输入用户名', required=true, name='username')
+                div.layui-form-item
+                    div.layui-input-wrap
+                        div.layui-input-prefix
+                            i.layui-icon.layui-icon-password
+                        input.layui-input(placeholder='输入密码', required=true, type='password', name='password')
+                div.layui-form-item
+                    button.layui-btn.layui-btn-fluid(lay-submit) 立即登录
+

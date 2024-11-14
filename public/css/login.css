@@ -1,0 +1,14 @@
+body{
+    position: relative;
+    background: url("../img/login_bg.jpg") no-repeat;
+    background-size: cover;
+}
+.login-form{
+    width: 300px;
+    position: absolute;
+    margin: auto;
+    left:0;
+    right:0;
+    top:10rem;
+    background-color: rgba(0,0,0,.4);
+}
