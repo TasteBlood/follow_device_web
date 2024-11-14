@@ -6,11 +6,11 @@ const isAuth = require('./authentication');
 router.get('/', function(req, res, next) {
   res.render('login');
 });
-router.get('/logout',isAuth,function (req,res,next){
+router.get('/logout',function (req,res,next){
   req.session.user = null
   res.redirect('/')
 });
-router.get('/home',isAuth, function (req,res,next) {
+router.get('/home', function (req,res,next) {
   res.render('home', {title:'首页'})
 })
 /* login success to main,otherwise to login*/
