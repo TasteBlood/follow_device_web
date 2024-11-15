@@ -30,7 +30,10 @@ const findAll = async (page,limit,name,province,city,county) => {
     if(county){
         query.where('county', 'like' ,`%${county}%`)
     }
-    return await query.orderBy('create_time','desc').limit(page===1?limit:(page-1)*limit);
+    return await query.orderBy('create_time','desc').limit(limit).offset((page-1)*limit);
+}
+const findOne = async (id) => {
+    return await Hospital.query().where('id', '=', id)
 }
 const add = async (name,link,mobile,province,city,county,address) => {
     return await Hospital.query().insert({
@@ -43,4 +46,20 @@ const add = async (name,link,mobile,province,city,county,address) => {
         address
     });
 }
-module.exports = {findAll,getCount,add}
+
+const edit = async (id,name,link,mobile,province,city,county,address) => {
+    return await Hospital.query().where('id','=',id).update({
+        name,
+        link,
+        mobile,
+        province,
+        city,
+        county,
+        address
+    });
+}
+
+const deleteById = async (id) => {
+    return Hospital.query().deleteById(id);
+}
+module.exports = {findAll,getCount,add,deleteById,findOne,edit}

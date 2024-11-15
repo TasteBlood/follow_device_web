@@ -21,7 +21,15 @@ class Hospital extends Model {
         }
     }
     async $beforeInsert(){
-        this.create_time = new Date().toLocaleString('zh-CN');
+        this.create_time = new Date();
+    }
+
+    $formatJson(json) {
+        json = super.$formatJson(json);
+        if(json.create_time){
+            json.create_time = new Date(json.create_time).toLocaleString();
+        }
+        return json;
     }
 
 }

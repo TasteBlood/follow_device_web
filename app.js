@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/hospital',hospitalRouter)
-app.use('/devices',devicesRouter)
+app.use('/device',devicesRouter)
 app.use('/version',versionRouter)
 
 // catch 404 and forward to error handler

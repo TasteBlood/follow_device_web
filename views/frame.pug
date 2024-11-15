@@ -1,14 +1,19 @@
 doctype html
-html
+html(lang='zh')
     head
         title= title
-        meta(lang='cn')
+        meta(lang='zh')
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='/layui/css/layui.css')
+        style.
+            .layui-container{
+                box-sizing: border-box;
+                margin-top: 20px;
+            }
     body
         // nav框架
-        ul.layui-nav
+        ul.layui-nav.layui-fixbar-top
             if title === '首页'
                 li.layui-nav-item.layui-this
                     a(href='/home') 首页
@@ -23,10 +28,10 @@ html
                     a(href='/hospital') 医院管理
             if title === '设备管理'
                 li.layui-nav-item.layui-this
-                    a(href='/devices') 设备管理
+                    a(href='/device') 设备管理
             else
                 li.layui-nav-item
-                    a(href='/devices') 设备管理
+                    a(href='/device') 设备管理
             if title === '版本管理'
                 li.layui-nav-item.layui-this
                     a(href='/version') 版本管理
@@ -40,7 +45,7 @@ html
                         a(href='/user') 用户管理
                     dd
                         a(href='/logout') 退出登录
-        div.layui-padding-4
+        div.layui-container
             block content
         script(src='/layui/layui.js')
         block script
