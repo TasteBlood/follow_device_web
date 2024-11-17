@@ -18,16 +18,16 @@ layui.use(['table','layer','form'],function (){
         url: '/device/api/findAll',
         cols:[[
             {field:'id',title:'ID',width:80},
-            {field:'name',title:'所属医院',templet:function (d){
+            {field:'name',title:'所属医院',width:150,templet:function (d){
                 return d.hospital.name;
             }},
             {field: 'device_imei_code',title:'设备序列号'},
             {field: 'device_reg_code',title:'设备注册码'},
-            {field: 'is_update',title:'支持更新',width:120,templet:function (d){
+            {field: 'is_update',title:'支持更新',width:100,templet:function (d){
                 return d.is_update===1?'是':'否'
             }},
-            {field: 'create_time',title:'创建时间'},
-            {field: 'operate',title:'操作',templet:function (d){
+            {field: 'create_time',title:'创建时间',width:160,},
+            {field: 'operate',title:'操作',width:100,templet:function (d){
                 if(d.is_update===1){
                     return `<button class="layui-btn layui-btn-sm layui-btn-primary" onclick="onStateChange(${d.id},-1)">禁止更新</button>`;
                 }else{
@@ -37,6 +37,8 @@ layui.use(['table','layer','form'],function (){
         ]],
         page:true
     })
+
+    loadHospitals()
 });
 let hospitals = [];
 let selectHospital = $('#selectHospital');
@@ -183,6 +185,17 @@ function generateRegCode() {
         layer.msg('请先输入序列号')
         return null;
     }
+    $.ajax({
+        url: `/device/api/regCode`,
+        method: 'post',
+        data: {device_imei_code: imei},
+        success: function (res) {
+            $("#addForm input[name='device_reg_code']").val(res.code)
+        },
+        error: function (result) {
+            layer.msg('网络异常')
+        }
+    })
     //先随机生成注册码
     $("#addForm input[name='device_reg_code']").val((Math.random()*100000).toFixed(0))
 }
@@ -209,7 +222,6 @@ function onStateChange(id,type){
 }
 //初始化加载数据
 function init(){
-    loadHospitals()
     $('#btnAdd').on('click', function(){
         openDialog('添加设备信息')
     })

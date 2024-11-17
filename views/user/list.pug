@@ -1,0 +1,15 @@
+extends ../frame
+block content
+    form#form.layui-form
+        div.layui-row.layui-col-space10
+            div.layui-col-lg2
+                input(name='username', lay-affix='clear', placeholder='输入关键字查询').layui-input
+            div.layui-col-lg3
+                button(type='button',lay-filter='form', lay-submit).layui-btn
+                    i.layui-icon.layui-icon-search &nbsp;查询
+                button#btnAdd(type='button').layui-btn.layui-btn-primary
+                    i.layui-icon.layui-icon-add-1 &nbsp;添加
+    table#table.layui-table
+block script
+    script(src='/js/jquery-3.7.1.min.js')
+    script(src='/js/user_page.js')

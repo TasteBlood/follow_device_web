@@ -9,6 +9,10 @@ let indexRouter = require('./routes/index');
 let hospitalRouter = require('./routes/hospitals');
 let devicesRouter = require('./routes/devices');
 let versionRouter = require('./routes/version');
+let userRouter = require('./routes/users');
+let uploadRouter = require('./routes/uploader');
+let deviceRegisterRouter = require('./routes/device_register');
+const {UPLOAD_PATH} = require("./model/config");
 
 let app = express();
 
@@ -30,10 +34,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//配置文件访问
+app.use('/file', express.static(UPLOAD_PATH));
+
 app.use('/', indexRouter);
 app.use('/hospital',hospitalRouter)
 app.use('/device',devicesRouter)
 app.use('/version',versionRouter)
+app.use('/user',userRouter)
+app.use('/upload',uploadRouter)
+app.use('/pro',deviceRegisterRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -8,23 +8,24 @@ layui.use(['table', 'form', 'layer'], function () {
         url: '/hospital/api/findAll',
         cols: [[
             {field: 'id', title: 'ID', width: 80},
-            {field: 'name', title: '名称', width: 300},
+            {field: 'name', title: '名称'},
             {field: 'link', title: '联系人', width: 100},
-            {field: 'mobile', title: '联系方式', width: 180},
+            {field: 'mobile', title: '联系方式'},
             {
                 field: 'address', title: '地址', templet: function (d) {
                     return d.province + d.city + d.county + d.address;
                 }
             },
             {
-                field: 'create_time', title: '创建时间', width: 200, templet: function (d) {
+                field: 'create_time', title: '创建时间',templet: function (d) {
                     return d.create_time.toLocaleString('zh-cn');
                 }
             },
             {
                 field: 'operate', title: '操作', width: 200, templet: function (d) {
-                    return `<button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-edit" onclick="openDialog('编辑医院信息',${d.id})">编辑</i></button>
-                                <button class="layui-btn layui-btn-xs layui-btn-danger"><i class="layui-icon layui-icon-delete" onclick="deleteClick(${d.id})">删除</i></button>`
+                    return `<button class="layui-btn layui-btn-xs layui-btn-primary"><i class="layui-icon layui-icon-edit" onclick="openDialog('编辑医院信息',${d.id})">编辑</i></button>
+                            <button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-set" onclick="openConfigDialog(${d.id})">公卫配置</i></button>
+                             `
                 }
             },
         ]],
@@ -158,6 +159,121 @@ function openDialog(title,id) {
         }
     })
 }
+
+function openConfigDialog(hospital_id) {
+    let index = layer.open({
+        type: 1,
+        content: `
+                        <form class="layui-form layui-padding-3" id="addForm">
+                                    <input type="hidden" name="hospital_id" value="${hospital_id}">
+                                    <div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label required">机构ID</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="jgid" required  lay-verify="required" placeholder="请输入机构ID" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label required">xtmc</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="xtmc" required  lay-verify="required" placeholder="请输入xtmc" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label required">ywjgdm</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="ywjgdm" required  lay-verify="required" placeholder="请输入ywjgdm" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                      <label class="layui-form-label required">apiUrl</label>
+                                      <div class="layui-input-block">
+                                        <input type="text" name="api_url" required  lay-verify="required" placeholder="请输入apiUrl" class="layui-input">
+                                      </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                      <label class="layui-form-label required">证书ID</label>
+                                      <div class="layui-input-block">
+                                        <input type="text" name="certificate_id" required lay-verify="required" placeholder="请输入证书ID" class="layui-input">
+                                      </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                       <label class="layui-form-label required">公 匙</label>
+                                        <div class="layui-input-block">
+                                           <textarea type="text" name="public_key" required lay-verify="required" placeholder="请输入公匙" class="layui-textarea" />
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                       <label class="layui-form-label">私 匙</label>
+                                        <div class="layui-input-block">
+                                           <textarea type="text" name="private_key" placeholder="请输入私匙" class="layui-textarea" />
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                      <div style="text-align: center">
+                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        <button type="submit" lay-filter="addForm" lay-submit class="layui-btn">保存</button>
+                                      </div>
+                                    </div>
+                                  </form>
+                    `,
+        title: '配置公卫平台信息',
+        area: ['700px', '600px'],
+        success: function () {
+            //先根据hospital_id查询
+            let loadIndex = layer.load(3)
+            $.ajax({
+                url: 'hospital/api/getConfig?hospital_id=' + hospital_id,
+                method: 'get',
+                success: function (res) {
+                    layer.close(loadIndex)
+                    if(res.code === 0 && res.data && res.data.jgid) {
+                        //回显值
+                        $('#addForm input[name="jgid"]').val(res.data.jgid);
+                        $('#addForm input[name="api_url"]').val(res.data.api_url);
+                        $('#addForm input[name="certificate_id"]').val(res.data.certificate_id);
+                        $('#addForm textarea[name="public_key"]').val(res.data.public_key);
+                        $('#addForm textarea[name="private_key"]').val(res.data.private_key);
+                        $('#addForm input[name="ywjgdm"]').val(res.data.ywjgdm);
+                        $('#addForm input[name="xtmc"]').val(res.data.xtmc);
+                    }
+                },
+                error: function () {
+                    layer.msg('网络异常');
+                    layer.close(loadIndex)
+                }
+            })
+            form.on('submit(addForm)', function (data) {
+                let loadIndex = layer.load(3)
+                console.log(data)
+                $.ajax({
+                    url: 'hospital/api/saveConfig',
+                    method: 'post',
+                    data: data.field,
+                    success: function (res) {
+                        layer.close(loadIndex)
+                        layer.close(index)
+                        if (res.code === 0) {
+                            layer.msg(res.msg);
+                            layer.close(index);
+                        } else {
+                            layer.msg(res.msg)
+                        }
+                    },
+                    error: function () {
+                        layer.close(loadIndex)
+                        layer.msg('网络异常');
+                    }
+                })
+                return false
+            })
+        }
+    })
+}
+
 function deleteClick(id) {
     let index = layer.confirm('确定删除吗？',null,()=>{
         $.ajax({

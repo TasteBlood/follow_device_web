@@ -1,7 +1,7 @@
 doctype html
 html(lang='zh')
     head
-        title= title
+        title= title +'-'+'健康测量设备管理系统'
         meta(lang='zh')
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
@@ -10,6 +10,11 @@ html(lang='zh')
             .layui-container{
                 box-sizing: border-box;
                 margin-top: 20px;
+            }
+            .layui-form-label.required::before{
+                content: '* ';
+                font-weight: bold;
+                color: red;
             }
     body
         // nav框架
@@ -39,8 +44,14 @@ html(lang='zh')
                 li.layui-nav-item
                     a(href='/version') 版本管理
             li.layui-nav-item
-                a(href='javascript:;') 系统设置
+                a(href='javascript:;')
+                    img(src='/img/avatar.jpg').layui-nav-img
                 dl.layui-nav-child
+                    dd
+                        if user
+                            a(href='javascript:;') #{user.username}
+                        else
+                            a(href='javascript:;') 未登录
                     dd
                         a(href='/user') 用户管理
                     dd

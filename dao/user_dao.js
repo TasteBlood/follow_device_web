@@ -1,25 +1,25 @@
 const {Model} = require('../model/db_utils');
-class Hospital extends Model {
+
+class User extends Model {
     static get tableName() {
-        return 't_hospital';
+        return 't_user';
     }
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['name'],
+            required: ['username', 'real_name'],
             properties: {
                 id:{type: 'integer'},
-                name:{type: 'string'},
-                link:{type: 'string'},
+                username:{type: 'string'},
+                password:{type: 'string'},
+                real_name:{type: 'string'},
                 mobile:{type: 'string'},
-                city:{type: 'string'},
-                county:{type: 'string'},
-                province:{type: 'string'},
+                // 0=可用 -1=禁用
+                state:{type:'integer', default:0},
                 create_time:{type: 'string'},
             }
         }
     }
-
     async $beforeInsert(){
         this.create_time = new Date();
     }
@@ -34,4 +34,4 @@ class Hospital extends Model {
 
 }
 
-module.exports = Hospital;
+module.exports = User;

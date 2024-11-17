@@ -1,25 +1,25 @@
 const {Model} = require('../model/db_utils');
-class Hospital extends Model {
+
+class HospitalConfig extends Model {
     static get tableName() {
-        return 't_hospital';
+        return 't_hospital_config';
     }
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['name'],
             properties: {
-                id:{type: 'integer'},
-                name:{type: 'string'},
-                link:{type: 'string'},
-                mobile:{type: 'string'},
-                city:{type: 'string'},
-                county:{type: 'string'},
-                province:{type: 'string'},
+                hospital_id:{type: 'integer'},
+                api_url:{type: 'string'},
+                certificate_id:{type: 'string'},
+                public_key:{type: 'string'},
+                private_key:{type: 'string'},
+                ywjgdm:{type: 'string'},
+                xtmc:{type: 'string'},
+                jgid:{type: 'string'},
                 create_time:{type: 'string'},
             }
         }
     }
-
     async $beforeInsert(){
         this.create_time = new Date();
     }
@@ -34,4 +34,4 @@ class Hospital extends Model {
 
 }
 
-module.exports = Hospital;
+module.exports = HospitalConfig;

@@ -5,8 +5,14 @@ const findOne = async (params) => {
     if(params.id){
         query.where('id', params.id);
     }
+    if(params.hospital_id){
+        query.where('hospital_id', params.hospital_id);
+    }
     if(params.device_imei_code){
         query.where('device_imei_code', params.device_imei_code);
+    }
+    if(params.device_reg_code){
+        query.where('device_reg_code', params.device_reg_code);
     }
     return await query;
 }

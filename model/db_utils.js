@@ -9,11 +9,12 @@ const knex = Knex({
     //     user: 'root',
     //     password: 'Hello1234@',
     //     database: 'follow_device_db',
-    // }
+    // },
+    debug:true,
     connection: {
-        host: '192.168.31.112',
+        host: 'localhost',
         user: 'root',
-        password: 'Hello1234@',
+        password: 'wan0701...',
         database: 'follow_device_db',
         timezone:'Z',
     }

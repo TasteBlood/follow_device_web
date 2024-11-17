@@ -1,10 +1,18 @@
 doctype html
 html
     head
-        title 用户登录
+        title 用户登录-健康测量设备管理系统
         link(rel='stylesheet', href='/layui/css/layui.css')
         link(rel='stylesheet', href='/css/login.css')
+        script(src='/js/jquery-3.7.1.min.js')
+        script(src='/layui/layui.js')
     body
+        if msg
+            script.
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.alert('#{msg}', {icon: 2});  // 弹出错误提示框
+                })
         div.login-form.layui-padding-4
             h2.layui-margin-3(style='color:white;text-align:center') 用户登录
             form#form.layui-form(method='post', action='/login')
@@ -12,12 +20,13 @@ html
                     div.layui-input-wrap
                         div.layui-input-prefix
                             i.layui-icon.layui-icon-username
-                        input.layui-input(placeholder='输入用户名', required=true, name='username')
+                        input.layui-input(placeholder='输入用户名', lay-verify='required', name='username')
                 div.layui-form-item
                     div.layui-input-wrap
                         div.layui-input-prefix
                             i.layui-icon.layui-icon-password
-                        input.layui-input(placeholder='输入密码', required=true, type='password', name='password')
+                        input.layui-input(placeholder='输入密码', lay-verify='required', type='password', name='password')
                 div.layui-form-item
-                    button.layui-btn.layui-btn-fluid(lay-submit) 立即登录
+                    button(lay-submit, lay-filter='form').layui-btn.layui-btn-fluid 立即登录
+        script(src='/js/login.js')
 
