@@ -18,7 +18,7 @@ layui.use(['table','layer','form'],function (){
         url: '/device/api/findAll',
         cols:[[
             {field:'id',title:'ID',width:80},
-            {field:'name',title:'所属医院',width:150,templet:function (d){
+            {field:'name',title:'所属医院',width:220,templet:function (d){
                 return d.hospital.name;
             }},
             {field: 'device_imei_code',title:'设备序列号'},

@@ -5,7 +5,7 @@ const {Model} = require('objection');
 const knex = Knex({
     client: 'mysql2',
     // connection: {
-    //     host: 'localhost',
+    //     host: '192.168.31.112',
     //     user: 'root',
     //     password: 'Hello1234@',
     //     database: 'follow_device_db',
