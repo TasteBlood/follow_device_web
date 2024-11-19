@@ -98,7 +98,7 @@ function openDialog(title,id) {
                                     <div class="layui-form-item">
                                       <label class="layui-form-label">安装包</label>
                                       <div class="layui-input-block">
-                                        <button type="button" id="uploader" class="layui-btn layui-btn-primary layui-btn-sm" lay-options="{accept:'file'}">
+                                        <button type="button" id="uploader" class="layui-btn layui-btn-primary layui-btn-sm" lay-options="{accept:'file',exts:'apk'}">
                                             <i class="layui-icon layui-icon-upload"></i> 上传安装包
                                         </button>
                                         <div id="urlTips" style="margin-top: .1rem"></div>

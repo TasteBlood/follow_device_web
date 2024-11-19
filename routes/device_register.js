@@ -54,16 +54,12 @@ router.get('/launch',async function (req, res) {
 })
 /* 版本更新的接口 */
 router.get('/update', async function (req, res) {
-  let hospital_id = req.query.hospital_id;
   let device_imei_code = req.query.device_imei_code;
-  if(!hospital_id){
-    return res.send(json_fail('医院id为空'))
-  }
   if(!device_imei_code){
     return res.send(json_fail('设备序列号为空'))
   }
   //再查询医院是否支持更新
-  let result = await findOne({hospital_id:parseInt(hospital_id),device_imei_code:device_imei_code})
+  let result = await findOne({device_imei_code:device_imei_code})
   if(!result || result.length <= 0){
     return res.send(json_fail('无设备信息'))
   }else{
@@ -71,7 +67,7 @@ router.get('/update', async function (req, res) {
       return res.send(json_fail('该设备不支持更新'))
     }
   }
-  result = await Version.findOne({hospital_id:parseInt(hospital_id)})
+  result = await Version.findOne({hospital_id:result[0].hospital_id})
   if(result && result.length > 0){
     res.send(json_success({version:result[0]}))
   }else{

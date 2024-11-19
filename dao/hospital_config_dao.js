@@ -16,6 +16,7 @@ class HospitalConfig extends Model {
                 ywjgdm:{type: 'string'},
                 xtmc:{type: 'string'},
                 jgid:{type: 'string'},
+                xzid:{type: 'string'},
                 create_time:{type: 'string'},
             }
         }

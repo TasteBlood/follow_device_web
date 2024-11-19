@@ -174,24 +174,30 @@ function openConfigDialog(hospital_id) {
                                             </div>
                                         </div>
                                         <div class="layui-inline">
-                                            <label class="layui-form-label required">xtmc</label>
+                                            <label class="layui-form-label required">系统名称</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="xtmc" required  lay-verify="required" placeholder="请输入xtmc" class="layui-input">
+                                                <input type="text" name="xtmc" required  lay-verify="required" placeholder="请输入系统名称" class="layui-input">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <div class="layui-inline">
-                                            <label class="layui-form-label required">ywjgdm</label>
+                                            <label class="layui-form-label required" >业务代码</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="ywjgdm" required  lay-verify="required" placeholder="请输入ywjgdm" class="layui-input">
+                                                <input type="text" name="ywjgdm" required  lay-verify="required" placeholder="请输入业务机构代码" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label required">行政ID</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="xzid" required  lay-verify="required" placeholder="请输入行政ID" class="layui-input">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
-                                      <label class="layui-form-label required">apiUrl</label>
+                                      <label class="layui-form-label required">请求地址</label>
                                       <div class="layui-input-block">
-                                        <input type="text" name="api_url" required  lay-verify="required" placeholder="请输入apiUrl" class="layui-input">
+                                        <input type="text" name="api_url" required  lay-verify="required" placeholder="请输入请求地址" class="layui-input">
                                       </div>
                                     </div>
                                     <div class="layui-form-item">
@@ -221,7 +227,7 @@ function openConfigDialog(hospital_id) {
                                   </form>
                     `,
         title: '配置公卫平台信息',
-        area: ['700px', '600px'],
+        area: ['720px', '640px'],
         success: function () {
             //先根据hospital_id查询
             let loadIndex = layer.load(3)
@@ -239,6 +245,7 @@ function openConfigDialog(hospital_id) {
                         $('#addForm textarea[name="private_key"]').val(res.data.private_key);
                         $('#addForm input[name="ywjgdm"]').val(res.data.ywjgdm);
                         $('#addForm input[name="xtmc"]').val(res.data.xtmc);
+                        $('#addForm input[name="xzid"]').val(res.data.xzid);
                     }
                 },
                 error: function () {
