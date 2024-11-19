@@ -10,19 +10,16 @@ layui.use(['table', 'form', 'layer'], function () {
             {field: 'id', title: 'ID', width: 80},
             {field: 'name', title: '名称'},
             {field: 'link', title: '联系人', width: 100},
-            {field: 'mobile', title: '联系方式'},
+            {field: 'mobile', title: '联系方式',width:120},
             {
                 field: 'address', title: '地址', templet: function (d) {
                     return d.province + d.city + d.county + d.address;
                 }
             },
             {
-                field: 'create_time', title: '创建时间',templet: function (d) {
-                    return d.create_time.toLocaleString('zh-cn');
-                }
-            },
+                field: 'create_time', title: '创建时间'},
             {
-                field: 'operate', title: '操作', width: 200, templet: function (d) {
+                field: 'operate', title: '操作', width: 180, templet: function (d) {
                     return `<button class="layui-btn layui-btn-xs layui-btn-primary"><i class="layui-icon layui-icon-edit" onclick="openDialog('编辑医院信息',${d.id})">编辑</i></button>
                             <button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-set" onclick="openConfigDialog(${d.id})">公卫配置</i></button>
                              `

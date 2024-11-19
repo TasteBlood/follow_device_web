@@ -27,7 +27,7 @@ class User extends Model {
     $formatJson(json) {
         json = super.$formatJson(json);
         if(json.create_time){
-            json.create_time = new Date(json.create_time).toLocaleString();
+            json.create_time = new Date(json.create_time).fullDateTime();
         }
         return json;
     }

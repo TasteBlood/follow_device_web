@@ -4,6 +4,7 @@ let path = require('path');
 let bodyParser = require('body-parser');
 let session = require('express-session')
 let logger = require('morgan');
+const DateMixin = require('./model/date_mixin');
 
 let indexRouter = require('./routes/index');
 let hospitalRouter = require('./routes/hospitals');
@@ -13,6 +14,10 @@ let userRouter = require('./routes/users');
 let uploadRouter = require('./routes/uploader');
 let deviceRegisterRouter = require('./routes/device_register');
 const {UPLOAD_PATH} = require("./model/config");
+
+//添加日期mixin混入
+Object.assign(Date.prototype,DateMixin);
+
 
 let app = express();
 
