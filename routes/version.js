@@ -2,6 +2,8 @@ let express = require('express');
 let isAuth = require('./authentication')
 const {findAll, getCount, add, findOne, update, remove} = require("../model/version_service");
 const {json_success, json_fail} = require("../model/output");
+const fs = require('fs');
+const {UPLOAD_PATH} = require("../model/config");
 let router = express.Router();
 
 /* GET users listing. */
@@ -52,8 +54,16 @@ router.post('/api/edit',isAuth,async function(req,res){
 })
 //删除
 router.get('/api/delete',isAuth,async function(req,res){
-    let result = await remove(req.query)
+    //先根据id查询，删除上传过的文件
+    let result = await findOne(req.query)
+    if(result && result.length > 0){
+        let path = result[0].url
+        fs.unlinkSync(UPLOAD_PATH + path)
+    }
+    result = await remove(req.query)
     if(result){
+        //删除成功，再删除本地存储的文件
+
         res.send(json_success())
     }else{
         res.send(json_fail('删除失败!'))

@@ -133,7 +133,7 @@ function openDialog(title,id) {
             uploader.render({
                 elem: '#uploader',
                 url:'/upload/single',
-                size: 1024 * 30,
+                size: 1024 * 50,//最大50MB
                 accept:'file',
                 before:function (){
                     loadIndex = layer.load(3)

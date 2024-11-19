@@ -27,11 +27,13 @@ layui.use(['table','layer','form'],function (){
                 return d.is_update===1?'是':'否'
             }},
             {field: 'create_time',title:'创建时间',width:160,},
-            {field: 'operate',title:'操作',width:100,templet:function (d){
+            {field: 'operate',title:'操作',width:160,templet:function (d){
                 if(d.is_update===1){
-                    return `<button class="layui-btn layui-btn-sm layui-btn-primary" onclick="onStateChange(${d.id},-1)">禁止更新</button>`;
+                    return `<button class="layui-btn layui-btn-xs layui-btn-primary" onclick="onStateChange(${d.id},-1)">禁止更新</button>
+                            <button class="layui-btn layui-btn-xs layui-btn-danger" onclick="onDeleteClick(${d.id})"><i class="layui-icon layui-icon-delete"></i>删除</button>`;
                 }else{
-                    return `<button class="layui-btn layui-btn-sm" onclick="onStateChange(${d.id},1)">启用更新</button>`;
+                    return `<button class="layui-btn layui-btn-xs" onclick="onStateChange(${d.id},1)">启用更新</button>
+                            <button class="layui-btn layui-btn-xs layui-btn-danger" onclick="onDeleteClick(${d.id})"><i class="layui-icon layui-icon-delete"></i>删除</button>`;
                 }
             }},
         ]],
@@ -214,6 +216,26 @@ function onStateChange(id,type){
                 table.reload('table', {page: {curr: 1}, });
             },
             error: function (result) {
+                layer.close(index)
+                layer.close(loadIndex)
+            }
+        })
+    },()=>{});
+}
+function onDeleteClick(id){
+    let index = layer.confirm(`确定删除吗?`,{},()=>{
+        //调用ajax更新状态
+        let loadIndex = layer.load(3)
+        $.ajax({
+            url: `device/api/remove?id=${id}`,
+            method: 'get',
+            success: function (result) {
+                layer.close(index)
+                layer.close(loadIndex)
+                layer.msg(result.msg)
+                table.reload('table', {page: {curr: 1}, });
+            },
+            error: function () {
                 layer.close(index)
                 layer.close(loadIndex)
             }

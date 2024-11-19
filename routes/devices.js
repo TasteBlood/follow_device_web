@@ -63,7 +63,7 @@ router.post('/api/updateState',isAuth,async function(req,res){
     }
 })
 //删除
-router.get('/api/delete',isAuth,async function(req,res){
+router.get('/api/remove',isAuth,async function(req,res){
     let result = await remove(req.query)
     if(result){
         res.send(json_success())
