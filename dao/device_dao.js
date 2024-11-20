@@ -16,6 +16,7 @@ class Device extends Model {
                 device_reg_code:{type: 'string'},
                 //1=支持 -1=不支持
                 is_update:{type: 'integer', default:1},
+                memo:{type: 'string'},
                 create_time:{type: 'string'},
             }
         }

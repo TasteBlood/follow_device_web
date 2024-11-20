@@ -28,6 +28,7 @@ CREATE TABLE `t_device` (
   `device_imei_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '设备imei',
   `device_reg_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '设备注册码',
   `is_update` int NOT NULL DEFAULT '1' COMMENT '是否更新 1=是 -1=否',
+  `memo` VARCHAR(255) COMMENT '备注',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;

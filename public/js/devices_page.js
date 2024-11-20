@@ -26,6 +26,7 @@ layui.use(['table','layer','form'],function (){
             {field: 'is_update',title:'支持更新',width:100,templet:function (d){
                 return d.is_update===1?'是':'否'
             }},
+            {field: 'memo',title:'备注'},
             {field: 'create_time',title:'创建时间',width:160,},
             {field: 'operate',title:'操作',width:160,templet:function (d){
                 if(d.is_update===1){
@@ -106,6 +107,12 @@ function openDialog(title,id) {
                                       </div>
                                     </div>
                                     <div class="layui-form-item">
+                                      <label class="layui-form-label">备注</label>
+                                      <div class="layui-input-block">
+                                        <input type="text" name="memo" required placeholder="请输入备注" class="layui-input">
+                                      </div>
+                                    </div>
+                                    <div class="layui-form-item">
                                       <div class="layui-input-block">
                                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                                         <button type="submit" lay-filter="addForm" lay-submit class="layui-btn">提交</button>
@@ -114,7 +121,7 @@ function openDialog(title,id) {
                                   </form>
                     `,
         title: title,
-        area: ['460px', '360px'],
+        area: ['460px', '420px'],
         success: function () {
             //渲染select
             let options = "<option value=''>选择医院</option>"
@@ -129,7 +136,7 @@ function openDialog(title,id) {
                 let index = layer.load(3)
                 //查询数据，
                 $.ajax({
-                    url: `DEVICE/api/findOne?id=${id}`,
+                    url: `device/api/findOne?id=${id}`,
                     method: 'get',
                     success: function (result) {
                         layer.close(index)
