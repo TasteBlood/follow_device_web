@@ -91,6 +91,7 @@ CREATE TABLE `t_hospital_config` (
   `ywjgdm` varchar(255) DEFAULT NULL COMMENT '医卫局码',
   `xtmc` varchar(255) DEFAULT NULL COMMENT '不知名参数',
   `jgid` varchar(255) DEFAULT NULL COMMENT '机构id',
+  `xzid` varchar(255) DEFAULT NULL COMMENT '行政id',
   `create_time` datetime DEFAULT NULL,
   UNIQUE KEY `hospital_id` (`hospital_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
