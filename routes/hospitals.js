@@ -1,6 +1,7 @@
 let express = require('express');
 let isAuth = require('./authentication')
 const {findAll, getCount, add, deleteById, findOne, edit} = require("../model/hospital_service");
+const DeviceService  = require('../model/device_service');
 const Config = require('../model/hos_config_service');
 const {json_success, json_fail} = require("../model/output");
 
@@ -106,5 +107,14 @@ router.post('/api/saveConfig',isAuth,async function(req, res, next) {
     }else{
         res.send(json_fail('操作失败'))
     }
+})
+//查询首页统计数据
+router.get('/api/statistics',isAuth,async function(req, res, next) {
+    //按医院查询设备的数量，并且返回
+    let result = await findAll(1,100,'','','','')
+    for(let i=0;i<result.length;i++){
+        result[i].deviceCount = await DeviceService.getCount({hospital_id: result[i].id})
+    }
+    res.send(json_success({data:result}))
 })
 module.exports = router;

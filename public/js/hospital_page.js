@@ -206,13 +206,13 @@ function openConfigDialog(hospital_id) {
                                     <div class="layui-form-item">
                                        <label class="layui-form-label required">公 匙</label>
                                         <div class="layui-input-block">
-                                           <textarea type="text" name="public_key" required lay-verify="required" placeholder="请输入公匙" class="layui-textarea" />
+                                           <textarea type="text" name="public_key" required lay-verify="required" placeholder="请输入公匙" class="layui-textarea"></textarea>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                        <label class="layui-form-label">私 匙</label>
                                         <div class="layui-input-block">
-                                           <textarea type="text" name="private_key" placeholder="请输入私匙" class="layui-textarea" />
+                                           <textarea type="text" name="private_key" placeholder="请输入私匙" class="layui-textarea"></textarea>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">

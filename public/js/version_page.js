@@ -92,7 +92,7 @@ function openDialog(title,id) {
                                     <div class="layui-form-item">
                                       <label class="layui-form-label">更新内容</label>
                                       <div class="layui-input-block">
-                                        <textarea type="text" name="content" required lay-verify="required" placeholder="请输入更新内容" class="layui-textarea" />
+                                        <textarea type="text" name="content" required lay-verify="required" placeholder="请输入更新内容" class="layui-textarea"></textarea>
                                       </div>
                                     </div>
                                     <div class="layui-form-item">
