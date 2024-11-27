@@ -30,7 +30,8 @@ app.use(session({
   secret:'Hello#1234@',
   resave:false,
   saveUninitialized:true,
-  cookie:{secure:false}
+  rolling:true,//用户每次有操作，就会刷新token的过期时间
+  cookie:{secure:false,httpOnly:true,maxAge:30*60*1000},
 }))
 
 app.use(logger('dev'));

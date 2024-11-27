@@ -28,12 +28,14 @@ layui.use(['table','layer','form'],function (){
             }},
             {field: 'memo',title:'备注'},
             {field: 'create_time',title:'创建时间',width:160,},
-            {field: 'operate',title:'操作',width:160,templet:function (d){
+            {field: 'operate',title:'操作',width:240,templet:function (d){
                 if(d.is_update===1){
                     return `<button class="layui-btn layui-btn-xs layui-btn-primary" onclick="onStateChange(${d.id},-1)">禁止更新</button>
+                            <button class="layui-btn layui-btn-xs layui-btn-normal" onclick="openDialog('编辑设备信息',${d.id})"><i class="layui-icon layui-icon-edit"></i>编辑</button>
                             <button class="layui-btn layui-btn-xs layui-btn-danger" onclick="onDeleteClick(${d.id})"><i class="layui-icon layui-icon-delete"></i>删除</button>`;
                 }else{
                     return `<button class="layui-btn layui-btn-xs" onclick="onStateChange(${d.id},1)">启用更新</button>
+                            <button class="layui-btn layui-btn-xs layui-btn-normal" onclick="openDialog('编辑设备信息',${d.id})"><i class="layui-icon layui-icon-edit"></i>编辑</button>
                             <button class="layui-btn layui-btn-xs layui-btn-danger" onclick="onDeleteClick(${d.id})"><i class="layui-icon layui-icon-delete"></i>删除</button>`;
                 }
             }},
@@ -95,15 +97,15 @@ function openDialog(title,id) {
                                                <input type="text" disabled name="device_reg_code" required lay-verify="required" placeholder="请生成注册码" class="layui-input">
                                             </div>
                                             <div class="layui-form-mid" style="padding: 0!important;">
-                                               <button type="button" class="layui-btn" onclick="generateRegCode()">生 成</button>
+                                               <button type="button" class="layui-btn" id="btnGenerate" onclick="generateRegCode()">生 成</button>
                                             </div>
                                        </div>
                                     </div>
                                     <div class="layui-form-item">
                                       <label class="layui-form-label">支持更新</label>
                                       <div class="layui-input-block">
-                                        <input type="radio" value="1" name="is_update" checked title="允许"/>
-                                        <input type="radio" value="-1" name="is_update" title="不允许"/>
+                                        <input type="radio" value=1 name="is_update"  title="允许"/>
+                                        <input type="radio" value=-1 name="is_update" title="不允许"/>
                                       </div>
                                     </div>
                                     <div class="layui-form-item">
@@ -132,6 +134,7 @@ function openDialog(title,id) {
 
             form.render('select')
             form.render('radio')
+
             if(id){
                 let index = layer.load(3)
                 //查询数据，
@@ -142,14 +145,14 @@ function openDialog(title,id) {
                         layer.close(index)
                         if(result.data){
                             //回显值
+                            $("#addForm select[name='hospital_id']").val(result.data.hospital_id);
                             $("#addForm input[name='id']").val(result.data.id);
-                            $("#addForm input[name='name']").val(result.data.name);
-                            $("#addForm input[name='link']").val(result.data.link);
-                            $("#addForm input[name='mobile']").val(result.data.mobile);
-                            $("#addForm input[name='province']").val(result.data.province);
-                            $("#addForm input[name='city']").val(result.data.city);
-                            $("#addForm input[name='county']").val(result.data.county);
-                            $("#addForm input[name='address']").val(result.data.address);
+                            $("#addForm input[name='device_imei_code']").val(result.data.device_imei_code);
+                            $("#addForm input[name='device_reg_code']").val(result.data.device_reg_code);
+                            $("#addForm input[name='memo']").val(result.data.memo);
+                            $(`#addForm input[name='is_update'][value='${result.data.is_update}']`).prop('checked',true);
+                            form.render('select')
+                            form.render('radio')
                         }else{
                             layer.msg('暂无该记录');
                         }

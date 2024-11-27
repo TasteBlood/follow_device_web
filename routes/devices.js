@@ -30,7 +30,7 @@ router.post('/api/add',isAuth,async function(req,res){
     let params = req.body
     delete params.id
     //现根据imei去查，如果有重复的就不能添加
-    let exists = await findOne(params)
+    let exists = await findOne({device_imei_code:params.device_imei_code})
     if(exists && exists.length > 0){
         return res.send(json_fail('该设备已存在！'))
     }
@@ -45,13 +45,27 @@ router.post('/api/add',isAuth,async function(req,res){
 })
 //编辑
 router.post('/api/edit',isAuth,async function(req,res){
-    let result = await update(req.body)
+    let params = req.body
+    params.hospital_id = parseInt(params.hospital_id)
+    params.is_update = parseInt(params.is_update)
+    params.id = parseInt(params.id)
+
+    //现根据imei去查，如果有重复的就不能添加
+    let exists = await findOne({device_imei_code:params.device_imei_code});
+    if(exists && exists.length > 0){
+        //判断查询出来的id和更新的id是不是同一个
+        if(exists[0].id!==params.id)
+            return res.send(json_fail('该设备已存在！'))
+    }
+
+    let result = await update(params)
     if(result){
         res.send(json_success())
     }else{
         res.send(json_fail('编辑失败!'))
     }
 })
+//编辑状态
 router.post('/api/updateState',isAuth,async function(req,res){
     let id = parseInt(req.body.id)
     let state = parseInt(req.body.state)

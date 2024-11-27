@@ -10,6 +10,12 @@ const knex = Knex({
     //     password: 'Hello1234@',
     //     database: 'follow_device_db',
     // },
+    // connection: {
+    //     host: '192.168.31.112',
+    //     user: 'root',
+    //     password: 'Hello1234@',
+    //     database: 'follow_device_db',
+    // },
     debug:false,
     connection: {
         host: 'localhost',

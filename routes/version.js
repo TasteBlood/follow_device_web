@@ -45,7 +45,17 @@ router.post('/api/edit',isAuth,async function(req,res){
     delete params.file
     params.hospital_id = parseInt(params.hospital_id)
     params.id = parseInt(params.id)
-    let result = await update(req.body)
+    //先根据id查询，删除上传过的文件
+    let result = await findOne(req.query)
+    if(result && result.length > 0){
+        let path = result[0].url
+        try {
+            fs.unlinkSync(UPLOAD_PATH + path)
+        }catch (e) {
+
+        }
+    }
+    result = await update(req.body)
     if(result){
         res.send(json_success())
     }else{
@@ -58,7 +68,11 @@ router.get('/api/delete',isAuth,async function(req,res){
     let result = await findOne(req.query)
     if(result && result.length > 0){
         let path = result[0].url
-        fs.unlinkSync(UPLOAD_PATH + path)
+       try {
+           fs.unlinkSync(UPLOAD_PATH + path)
+       }catch (e) {
+
+       }
     }
     result = await remove(req.query)
     if(result){
